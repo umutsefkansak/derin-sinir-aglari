@@ -14,13 +14,13 @@ class_names = [
     "Sandal", "Shirt", "Sneaker", "Bag", "Ankle boot"
 ]
 
-# **Veri Setini Yükleme**
-# Fashion MNIST veri setini indir ve yükle
+
+
 transform = transforms.Compose([
     transforms.ToTensor(),  # Görüntüleri tensöre dönüştür ve normalize et (0-1 aralığına)
 ])
 
-# Eğitim ve test veri setlerini yükle
+
 train_dataset = torchvision.datasets.FashionMNIST(
     root="./data", train=True, download=True, transform=transform
 )
@@ -28,12 +28,12 @@ test_dataset = torchvision.datasets.FashionMNIST(
     root="./data", train=False, download=True, transform=transform
 )
 
-# DataLoader'ları tanımla
+
 batch_size = 128
 train_iter = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 test_iter = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
-# Model Parametreleri
+
 num_inputs = 784
 num_outputs = 10
 
@@ -87,7 +87,7 @@ def evaluate_accuracy(net, data_iter):
     return metric[0] / metric[1]
 
 
-# **Grafik Çizme İçin Güncellenmiş Eğitim Fonksiyonu**
+
 def train_ch3(net, train_iter, test_iter, loss, num_epochs, updater):
     train_losses, train_accuracies, test_accuracies = [], [], []
 
@@ -102,7 +102,7 @@ def train_ch3(net, train_iter, test_iter, loss, num_epochs, updater):
         print(
             f"Epoch {epoch + 1}: Loss={train_metrics[0]:.4f}, Train Acc={train_metrics[1]:.4f}, Test Acc={test_acc:.4f}")
 
-    # **Grafikleri Çizdir**
+ 
     fig, axs = plt.subplots(1, 2, figsize=(12, 4))
 
     axs[0].plot(range(1, num_epochs + 1), train_losses, label="Eğitim Kaybı (Loss)")
@@ -150,7 +150,7 @@ num_epochs = 10
 train_ch3(net, train_iter, test_iter, cross_entropy, num_epochs, updater)
 
 
-# **Tahmin Fonksiyonu**
+
 def predict_ch3(net, test_iter, n=6):
     for X, y in test_iter:
         break
@@ -174,5 +174,5 @@ def predict_ch3(net, test_iter, n=6):
     plt.show()
 
 
-# **Tahminleri Gör**
+
 predict_ch3(net, test_iter, n=6)
